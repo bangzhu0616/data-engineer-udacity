@@ -9,7 +9,7 @@ time_table_drop = "drop table if exists time"
 # CREATE TABLES
 
 songplay_table_create = ("""
-create table songplays (
+CREATE TABLE songplays (
     songplay_id int primary key,
     start_time timestamp,
     user_id int,
@@ -23,7 +23,7 @@ create table songplays (
 """)
 
 user_table_create = ("""
-create table users (
+CREATE TABLE users (
 	user_id int primary key,
 	first_name varchar,
 	last_name varchar,
@@ -33,7 +33,7 @@ create table users (
 """)
 
 song_table_create = ("""
-create table songs (
+CREATE TABLE songs (
     song_id varchar primary key,
     title varchar,
     artist_id varchar,
@@ -43,7 +43,7 @@ create table songs (
 """)
 
 artist_table_create = ("""
-create table artists (
+CREATE TABLE artists (
     artist_id varchar primary key,
     name varchar,
     location varchar,
@@ -53,7 +53,7 @@ create table artists (
 """)
 
 time_table_create = ("""
-create table time (
+CREATE TABLE time (
     start_time timestamp,
     hour int,
     day int,
@@ -67,33 +67,33 @@ create table time (
 # INSERT RECORDS
 
 songplay_table_insert = ("""
-insert into songplays (songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent) 
-values (%s, %s, %s, %s, %s, %s, %s, %s, %s) 
-on conflict(songplay_id) do nothing;
+INSERT INTO songplays (songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent) 
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) 
+ON conflict(songplay_id) do nothing;
 """)
 
 user_table_insert = ("""
-insert into users (user_id, first_name, last_name, gender, level)
-values (%s, %s, %s, %s, %s) 
-on conflict(user_id) do update set level = excluded.level;
+INSERT INTO users (user_id, first_name, last_name, gender, level)
+VALUES (%s, %s, %s, %s, %s) 
+ON conflict(user_id) do UPDATE SET level = excluded.level;
 """)
 
 song_table_insert = ("""
-insert into songs (song_id, title, artist_id, year, duration) 
-values (%s, %s, %s, %s, %s) 
-on conflict(song_id) do nothing;
+INSERT INTO songs (song_id, title, artist_id, year, duration) 
+VALUES (%s, %s, %s, %s, %s) 
+ON conflict(song_id) do nothing;
 """)
 
 artist_table_insert = ("""
-insert into artists (artist_id, name, location, latitude, longitude) 
-values (%s, %s, %s, %s, %s)
-on conflict(artist_id) do nothing;
+INSERT INTO artists (artist_id, name, location, latitude, longitude) 
+VALUES (%s, %s, %s, %s, %s)
+ON conflict(artist_id) do nothing;
 """)
 
 
 time_table_insert = ("""
-insert into time (start_time, hour, day, week, month, year, weekday) 
-values (%s, %s, %s, %s, %s, %s, %s);
+INSERT INTO time (start_time, hour, day, week, month, year, weekday) 
+VALUES (%s, %s, %s, %s, %s, %s, %s);
 """)
 
 # FIND SONGS
