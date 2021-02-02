@@ -82,10 +82,11 @@ def process_log_file(cur, filepath):
         else:
             songid, artistid = None, None
 
-        # insert songplay record
-        songplay_data = (row.ts, row.userId, row.level, songid, artistid, row.sessionId,\
-                         row.location, row.userAgent)
-        cur.execute(songplay_table_insert, songplay_data)
+        if songid is not None and artistid is not None:
+            # insert songplay record
+            songplay_data = (row.ts, row.userId, row.level, songid, artistid, row.sessionId,\
+                             row.location, row.userAgent)
+            cur.execute(songplay_table_insert, songplay_data)
 
 
 def process_data(cur, conn, filepath, func):

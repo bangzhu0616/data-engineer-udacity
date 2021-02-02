@@ -12,10 +12,10 @@ songplay_table_create = ("""
 CREATE TABLE songplays (
     songplay_id serial primary key,
     start_time timestamp,
-    user_id int,
+    user_id int NOT NULL,
     level varchar,
     song_id varchar,
-    artist_id varchar,
+    artist_id varchar NOT NULL,
     session_id int,
     location varchar,
     user_agent varchar
