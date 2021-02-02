@@ -10,7 +10,7 @@ time_table_drop = "drop table if exists time"
 
 songplay_table_create = ("""
 CREATE TABLE songplays (
-    songplay_id int primary key,
+    songplay_id serial primary key,
     start_time timestamp,
     user_id int,
     level varchar,
@@ -67,9 +67,8 @@ CREATE TABLE time (
 # INSERT RECORDS
 
 songplay_table_insert = ("""
-INSERT INTO songplays (songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent) 
-VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) 
-ON conflict(songplay_id) do nothing;
+INSERT INTO songplays (start_time, user_id, level, song_id, artist_id, session_id, location, user_agent) 
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
 """)
 
 user_table_insert = ("""
