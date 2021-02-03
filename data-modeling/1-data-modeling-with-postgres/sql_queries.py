@@ -12,10 +12,10 @@ songplay_table_create = ("""
 CREATE TABLE songplays (
     songplay_id serial primary key,
     start_time timestamp,
-    user_id int NOT NULL,
+    user_id int NOT NULL REFERENCES users (user_id),
     level varchar,
-    song_id varchar,
-    artist_id varchar NOT NULL,
+    song_id varchar REFERENCES songs (song_id),
+    artist_id varchar NOT NULL REFERENCES artists (artist_id),
     session_id int,
     location varchar,
     user_agent varchar
@@ -109,5 +109,5 @@ SELECT song_id, artists.artist_id \
 
 # QUERY LISTS
 
-create_table_queries = [songplay_table_create, user_table_create, song_table_create, artist_table_create, time_table_create]
+create_table_queries = [user_table_create, artist_table_create, song_table_create, time_table_create, songplay_table_create]
 drop_table_queries = [songplay_table_drop, user_table_drop, song_table_drop, artist_table_drop, time_table_drop]
