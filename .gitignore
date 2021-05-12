@@ -2,9 +2,9 @@
 *.pyc
 *.ipynb_checkpoints*
 *__pycache__*
-data-modeling/venv
 data-modeling/1-data-modeling-with-postgres/data
 data-modeling/2-data-modeling-with-cassandra/images
 data-modeling/2-data-modeling-with-cassandra/event_data
+data-spark/4-data-lake/data
 *venv*
 *.cfg
