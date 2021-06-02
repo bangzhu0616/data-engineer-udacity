@@ -8,3 +8,4 @@ data-modeling/2-data-modeling-with-cassandra/event_data
 data-spark/4-data-lake/data
 *venv*
 *.cfg
+capstone/pestcide/data
