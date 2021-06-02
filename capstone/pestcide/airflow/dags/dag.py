@@ -3,7 +3,7 @@ import os
 from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators import (CreateTableOperator, StageToRedshiftOperator, LoadFactOperator,
-                                LoadDimensionOperator, DataQualityOperator)
+                                LoadDimensionOperator, DataQualityOperator, DataKeyCheckOperator)
 from helpers import SqlQueries
 
 s3_bucket='pestcidedb-capstone'
@@ -101,6 +101,14 @@ run_quality_checks = DataQualityOperator(
     tables=['pestcide_use', 'compounds', 'counties', 'states']
 )
 
+run_uniquekey_checks = DataKeyCheckOperator(
+    task_id='Run_data_uniquekey_checks',
+    dag=dag,
+    aws_credentials_id='aws_credentials',
+    redshift_conn_id='redshift',
+    tables=['compounds', 'counties', 'states']
+)
+
 end_operator = DummyOperator(task_id='Stop_execution',  dag=dag)
 
 start_operator >> create_tables_in_redshift
@@ -109,5 +117,5 @@ stage_dictionary_to_redshift >> load_state_dimension_table
 load_state_dimension_table >> load_county_dimension_table
 stage_pestcidedb_to_redshift >> load_compound_dimension_table
 [load_county_dimension_table, load_compound_dimension_table] >> load_pestcide_usage_table
-load_pestcide_usage_table >> run_quality_checks
-run_quality_checks >> end_operator
+load_pestcide_usage_table >> [run_quality_checks, run_uniquekey_checks]
+[run_quality_checks, run_uniquekey_checks] >> end_operator

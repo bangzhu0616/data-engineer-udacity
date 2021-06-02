@@ -13,7 +13,8 @@ class PestcideDBPlugin(AirflowPlugin):
         operators.StageToRedshiftOperator,
         operators.LoadFactOperator,
         operators.LoadDimensionOperator,
-        operators.DataQualityOperator
+        operators.DataQualityOperator,
+        operators.DataKeyCheckOperator
     ]
     helpers = [
         helpers.SqlQueries
